@@ -1,2 +1,2 @@
 # orqestrate
-A tool for orqestrating Qt compiling (in the near future)?
+A tool for orchestrating Qt compiling (in the near future)?
