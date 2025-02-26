@@ -45,15 +45,16 @@ FetchContent_MakeAvailable(tomlplusplus)
 add_executable(orqestrate src/main.cpp)
 
 target_link_libraries(orqestrate PRIVATE
-	archive
-	fmt
+    archive
+    fmt
     ${FTXUI_LIB_DIR}/ftxui-component.lib
     ${FTXUI_LIB_DIR}/ftxui-dom.lib
     ${FTXUI_LIB_DIR}/ftxui-screen.lib
-	spdlog::spdlog
+    spdlog::spdlog
 )
 
 target_include_directories(
-	orqestrate PRIVATE ${CMAKE_SOURCE_DIR}/src
-	${CMAKE_BINARY_DIR}/_deps/tomlplusplus-src/include
+    orqestrate PRIVATE ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_BINARY_DIR}/_deps/tomlplusplus-src/include
+    ${CMAKE_BINARY_DIR}/_deps/ftxui-src/include
 )
