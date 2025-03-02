@@ -31,8 +31,11 @@
 *.out
 *.app
 
-# Ignore build directory
+# Build directory
 build/
+
+# Third party libraries
+third_party/ 
 
 # CMake
 CMakeLists.txt.user

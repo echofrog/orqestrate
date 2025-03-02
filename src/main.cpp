@@ -3,8 +3,6 @@
 #include <fmt/core.h>
 #include <toml++/toml.hpp>
 
-#include "ftxui_wrapper.h"
-
 using namespace std::literals;
 
 int main()
