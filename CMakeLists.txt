@@ -50,6 +50,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(tomlplusplus)
 
+FetchContent_Declare(
+    linenoise
+    GIT_REPOSITORY https://github.com/antirez/linenoise.git
+    GIT_TAG 1.0
+)
+FetchContent_MakeAvailable(linenoise)
+
+
 add_executable(orqestrate src/main.cpp)
 
 target_link_libraries(orqestrate PRIVATE
@@ -58,8 +66,18 @@ target_link_libraries(orqestrate PRIVATE
     spdlog::spdlog
 )
 
-# Include directories
-target_include_directories(
-    orqestrate PRIVATE ${CMAKE_SOURCE_DIR}/src
-    ${CMAKE_BINARY_DIR}/_deps/tomlplusplus-src/include
+target_include_directories(orqestrate PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/third_party/tomlplusplus-src/include
 )
+
+message(STATUS "Linenoise source directory: ${linenoise_SOURCE_DIR}")
+
+
+# Add linenoise source file to the project (no need for a separate library)
+target_sources(orqestrate PRIVATE
+    ${linenoise_SOURCE_DIR}/linenoise.c
+)
+
+# Optionally, include the linenoise header directory
+target_include_directories(orqestrate PRIVATE ${linenoise_SOURCE_DIR})
