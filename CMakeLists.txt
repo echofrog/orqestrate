@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if (MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MT")
     add_definitions(-D_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING)
 endif()
 
@@ -51,17 +52,17 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(tomlplusplus)
 
 FetchContent_Declare(
-    linenoise
-    GIT_REPOSITORY https://github.com/antirez/linenoise.git
-    GIT_TAG 1.0
+    CLI11
+    GIT_REPOSITORY https://github.com/CLIUtils/CLI11
+    GIT_TAG v2.5.0
 )
-FetchContent_MakeAvailable(linenoise)
-
+FetchContent_MakeAvailable(CLI11)
 
 add_executable(orqestrate src/main.cpp)
 
 target_link_libraries(orqestrate PRIVATE
     archive
+    CLI11
     fmt
     spdlog::spdlog
 )
@@ -70,14 +71,3 @@ target_include_directories(orqestrate PRIVATE
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/third_party/tomlplusplus-src/include
 )
-
-message(STATUS "Linenoise source directory: ${linenoise_SOURCE_DIR}")
-
-
-# Add linenoise source file to the project (no need for a separate library)
-target_sources(orqestrate PRIVATE
-    ${linenoise_SOURCE_DIR}/linenoise.c
-)
-
-# Optionally, include the linenoise header directory
-target_include_directories(orqestrate PRIVATE ${linenoise_SOURCE_DIR})
